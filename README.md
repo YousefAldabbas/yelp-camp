@@ -1,6 +1,6 @@
 # codewell - Yelp camp solution
 
-![Design preview for yelp camp challenge](./images/desktop-preview.jpg)
+![Design preview for yelp camp challenge](./images/overview.jpg)
 
 ## Welcome! 👋
 
@@ -33,8 +33,8 @@ Users should be able to:
 
 ### Screenshot
 
-![Screenshot](./readme-images/1.jpg)
-![Screenshot](./readme-images/2.jpg)
+![Screenshot](./readme-images/1.png)
+![Screenshot](./readme-images/2.png)
 ### Links
 
 - Solution URL: [click here](https://github.com/YousefAldabbas/yelp-camp)
