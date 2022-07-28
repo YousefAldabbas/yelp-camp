@@ -1,6 +1,6 @@
 # codewell - Yelp camp solution
 
-![Design preview for yelp camp challenge](./images/overview.jpg)
+![Design preview for yelp camp challenge](./readme-images/overview.jpg)
 
 ## Welcome! 👋
 
