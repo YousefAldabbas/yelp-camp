@@ -2,7 +2,7 @@ import React from 'react'
 import {
     Box
 } from '@mui/material'
-
+import Logo from "../assets/Logo.svg"
 function Footer() {
   return (
     <Box component="div"
@@ -10,7 +10,7 @@ function Footer() {
         marginTop: "2rem",
     }}
     >
-    <Box component="img" src="/assets/logo.svg"></Box>
+    <Box component="img" src={Logo}></Box>
   </Box>
   )
 }

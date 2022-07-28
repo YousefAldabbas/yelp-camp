@@ -3,6 +3,10 @@ import { Grid, Box, Typography, Stack, Avatar } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+
+import YcLogo from "../components/YcLogo";
+import UserTestimonial from "../assets/UserTestimonial.svg"
+
 function SignIn() {
 
   const navigate = useNavigate();
@@ -38,19 +42,7 @@ function SignIn() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Box
-            component="img"
-            alt="logo"
-            src="/assets/logo.svg"
-            sx={{
-              width: {
-                sx: "100%",
-                sm: "200px",
-                md: "130px",
-                lg: "130px",
-              },
-            }}
-          />
+          <YcLogo />
 
           <Stack
             flexDirection="row"
@@ -60,7 +52,7 @@ function SignIn() {
               textDecoration: 'underline',
               cursor: 'pointer',
             }}
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/home")}
           >
               <KeyboardBackspaceIcon
                  sx={{
@@ -152,7 +144,7 @@ function SignIn() {
           >
             <Avatar
               alt="icon"
-              src="/assets/UserTestimonial.svg"
+              src={UserTestimonial}
               sx={{
                 marginTop: 2,
                 width: {

@@ -19,36 +19,20 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import LogoutIcon from "@mui/icons-material/Logout";
-const YcButton = styled(Button)({
-  marginTop: "0rem",
-  backgroundColor: "black",
-  width: "100%",
-  minHeight: "4rem",
-  boxShadow: "none",
-  fontSize: "1rem",
-  padding: "0rem 2rem",
-  textTransform: "none",
-  fontWeight: "bold",
-  [`&:hover`]: {
-    backgroundColor: "black",
-  },
-  [`@media (max-width: 900px)`]: {
-    width: "500px",
-  },
-  maxWidth: "300px",
-});
-const drawerWidth = "100%";
+import { useTheme } from "@mui/material/styles";
+
+import YcButton from "../theme/YcButton";
+
+import Logo from "../assets/Logo.svg";
+
+const drawerWidth = "80%";
+
 export default function MyAppBar(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthenticated, user, isSuccess } = useSelector(
     (state) => state.auth
   );
-  // useEffect(() => {
-  //   if (!isAuthenticated && isSuccess) {
-  //     navigate("/");
-  //   }
-  // }, [isAuthenticated, isSuccess, navigate]);
   const [close, setClose] = useState(false);
 
   const { window } = props;
@@ -65,34 +49,39 @@ export default function MyAppBar(props) {
     <div>
       <Box
         sx={{
-          width: "100%",
-          height: "2rem",
           display: "flex",
-          justifyContent: "center",
+          p:2,
+          justifyContent: "end",
           alignItems: "center",
           "&:hover": {
             cursor: "pointer",
             backgroundColor: "#fafafa",
           },
+          backgroundColor: "#fafafa",
         }}
       >
-        <ArrowDropDownIcon
+        <CloseIcon
           onClick={() => {
             setMobileOpen(false);
           }}
           sx={{
             fontSize: "2rem",
-            animation: "vertical-move 1s infinite",
+            animation: "vertical-move 5s infinite",
             "@keyframes vertical-move": {
-              "0%": {
-                transform: "translateY(0px)",
+              from: {
+                "-ms-transform": "rotate(0deg)",
+                "-moz-transform": "rotate(0deg)",
+                "-webkit-transform": "rotate(0deg)",
+                "-o-transform": "rotate(0deg)",
+                "transform": "rotate(0deg)",
               },
-              "50%": {
-                transform: "translateY(10px)",
-              },
-              "100%": {
-                transform: "translateY(0px)",
-              },
+              to:{
+                "-ms-transform": "rotate(360deg)",
+                "-moz-transform": "rotate(360deg)",
+                "-webkit-transform":"rotate(360deg)",
+                "-o-transform": "rotate(360deg)",
+                transform: "rotate(360deg)",
+              }
             },
           }}
         />
@@ -100,98 +89,112 @@ export default function MyAppBar(props) {
       <List
         sx={{
           position: "relative",
+
         }}
       >
         <ListItem
           button
           onClick={() => {
             navigate("/home");
+            handleDrawerToggle()
+          }}
+          sx={{
+
+            fontSize:"2rem"
+              }}
+        >
+          <ListItemText
+             disableTypography
+             primary={<Typography type="body2" sx={{ fontSize:"1.5rem" }}>Home</Typography>}
+          />
+        </ListItem>
+        <ListItem
+          button
+          onClick={() => {
+            navigate("/add-new-campground/");
+            handleDrawerToggle()
           }}
         >
           <ListItemText
-            primary="Home"
-            sx={{
-              textAlign: "center",
-            }}
-          />
-        </ListItem>
-        <ListItem button onClick={() => {}}>
-          <ListItemText
-            primary="Add your own campground"
-            sx={{
-              textAlign: "center",
-            }}
+             disableTypography
+             primary={<Typography type="body2" sx={{ fontSize:"1.5rem" }}>Add campground</Typography>}
           />
         </ListItem>
         {!isAuthenticated && !user ? (
           <>
-          <ListItem
-            button
-            onClick={() => {
-              navigate("/signup");
-            }}
-          >
-            <ListItemText
-              primary="Login"
-              sx={{
-                textAlign: "center",
+            <ListItem
+              button
+              onClick={() => {
+                navigate("/signup");
+                handleDrawerToggle()
               }}
-            />
-          </ListItem>
-          <ListItem
-            button
-            onClick={() => {
-              navigate("/signin");
-            }}
-          >
+            >
             <ListItemText
-              primary="Sign in"
-              sx={{
-                textAlign: "center",
+             disableTypography
+             primary={<Typography type="body2" sx={{ fontSize:"1.5rem" }}>sign up</Typography>}
+          />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => {
+                navigate("/signin");
+                handleDrawerToggle()
               }}
-            />
-          </ListItem>
-
-
+            >
+              <ListItemText
+             disableTypography
+             primary={<Typography type="body2" sx={{ fontSize:"1.5rem" }}>sign in</Typography>}
+          />
+            </ListItem>
           </>
         ) : (
           <>
             <ListItem
               button
-              onClick={() => {}}
+              onClick={() => {
+                handleDrawerToggle()
+              }}
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
                 flexBasis: "1",
+                order: 1
               }}
             >
-
-              <ListItemText
-                primary={`${user.username}`}
-                sx={{
-                  textAlign: "center",
-                }}
-              />
+             <ListItemText
+             disableTypography
+             primary={<Typography type="body2" sx={{ fontSize:"1.5rem",color:"black",fontWeight:"bold" }}>{`welcome ${user.username}`}</Typography>}
+          />
             </ListItem>
             <ListItem
-             onClick={() => {
-              dispatch(logout());
-            }}
+              onClick={() => {
+                dispatch(logout());
+                handleDrawerToggle()
+              }}
+              sx={{
+                mt:{
+                  xs:40
+                }
+              }}
             >
               <ListItemButton
-              sx={{
-                textAlign: "center",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-
+                sx={{
+                  textAlign: "center",
+                  display: "flex",
+                  p:2,
+                  borderRadius:"20px",
+                  justifyContent: "center",
+                backgroundColor:"#000000",
+                color:"#fff",
+                fontSize:"1.5rem"
+                }}
               >
                 <LogoutIcon
-                sx={{
-                  mr: "0.6rem",
-                }}
+                  sx={{
+                    mr: "0.6rem",
+
+                  }}
                 />
                 Logout
               </ListItemButton>
@@ -205,14 +208,47 @@ export default function MyAppBar(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: "100vw" }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        maxWidth: "100vw",
+
+        position: {
+          lg: "static",
+          md: "static",
+          xs: "fixed",
+        },
+
+        zIndex: 999,
+        width:"100%",
+        left: 0,
+        top: 0,
+      }}
+    >
       <CssBaseline />
       <Box
         sx={{
           backgroundColor: "#000000",
-          position: "absolute",
-          top: 0,
-          left: 0,
+          position: {
+            lg: "absolute",
+            md: "absolute",
+            sm: "none",
+          },
+          top:  {
+            lg: 0,
+            md: 0,
+            sm: 0,
+          },
+          right: {
+            lg: 0,
+            md: 0,
+            sm: 0,
+          },
+          left: {
+            lg: 0,
+            md: 0,
+            sm: 0,
+          },
           width: "100%",
           display: close ? "none" : "flex",
           justifyContent: "center",
@@ -247,31 +283,37 @@ export default function MyAppBar(props) {
           >
             Codewell{" "}
           </Box>
+          <CloseIcon
+            sx={{
+              color: "white",
+              fontSize: {
+                xs: "0.8rem",
+                sm: "0.8rem",
+                md: "1rem",
+                lg: "1rem",
+              },
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              setClose(true);
+            }}
+          />
         </Typography>
-        <CloseIcon
-          sx={{
-            color: "white",
-            fontSize: {
-              xs: "0.8rem",
-              sm: "0.8rem",
-              md: "1rem",
-              lg: "1rem",
-            },
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            setClose(true);
-          }}
-        />
       </Box>
       <AppBar
-        position="static"
         sx={{
           mt: {
-            xs: close ? "-2rem" : "4rem",
-            md: close ? "-2rem" : "0rem",
+            xs: close ? "0rem" : "3rem",
+            sm: close ? "0rem" : "1.8rem",
+            md: close ? "0rem" : "2rem",
             lg: close ? "-2rem" : "0rem",
           },
+          position: {
+            lg: "static",
+            md: " static",
+            xs: "fixed",
+          },
+          zIndex: 99,
           backgroundColor: "white",
           boxShadow: "none",
           mb: "1.5rem",
@@ -294,7 +336,8 @@ export default function MyAppBar(props) {
             sx={{
               mr: 1,
             }}
-            onClick={() => navigate("/")}
+            onClick={() => {navigate("/home")}
+          }
           >
             <Box
               component="img"
@@ -302,7 +345,7 @@ export default function MyAppBar(props) {
                 pb: "0.3rem",
               }}
               alt="logo"
-              src="/assets/logo.svg"
+              src={Logo}
             />
           </IconButton>
           <Typography
@@ -320,7 +363,7 @@ export default function MyAppBar(props) {
               fontSize: "1rem",
               cursor: "pointer",
             }}
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/home")}
           >
             Home
           </Typography>
@@ -372,8 +415,9 @@ export default function MyAppBar(props) {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    dispatch(logout());
+
                     navigate("/signin");
+                    dispatch(logout());
                   }}
                 >
                   {user.username}
@@ -414,11 +458,12 @@ export default function MyAppBar(props) {
               right: "0rem",
               top: "0rem",
             }}
+            onClick={() => {
+              handleDrawerToggle();
+            }}
           >
             <MenuIcon
-              onClick={() => {
-                handleDrawerToggle();
-              }}
+
               sx={{
                 backgroundColor: "#E5E5E5",
                 borderRadius: "5%",
@@ -436,12 +481,13 @@ export default function MyAppBar(props) {
           width: { sm: drawerWidth },
           flexShrink: { sm: 0 },
           display: { sm: "block", md: "none", lg: "none" },
+
         }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          anchor="bottom"
+          anchor="left"
           container={container}
           variant="temporary"
           open={mobileOpen}
@@ -454,12 +500,13 @@ export default function MyAppBar(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              borderRadius:"10px"
             },
+
           }}
         >
           {drawer}
         </Drawer>
-
       </Box>
     </Box>
   );

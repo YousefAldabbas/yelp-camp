@@ -3,6 +3,8 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { register, login, reset } from "../features/auth/authSlice";
+
+import { toast } from "react-toastify";
 import {
   Grid,
   Box,
@@ -75,23 +77,36 @@ function LoginForm() {
   const path = location.pathname;
 
   const isLoginPage = path === "/signin";
-  const { user, isSuccess } = useSelector((state) => state.auth);
+  const { user, isSuccess, isError, } = useSelector(
+    (state) => state.auth
+  );
   useEffect(() => {
-    if (user) {
-      navigate("/");
-    }
-    if (isSuccess) {
+    if (user && user.username) {
       navigate("/home");
+    }
+    if (isSuccess && user) {
+      toast.success(`welcome ${user.username}!`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      navigate("/home");
+    }
+    if (isError) {
+      toast.error("username or password isn't valid");
     }
     return () => {
       dispatch(reset());
-    }
-  }, [user]);
+    };
+  }, [user, isError]);
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-
       if (isLoginPage) {
         dispatch(login(values));
       } else {

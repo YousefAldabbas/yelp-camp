@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCamps, reset } from "../features/camp/campSlice";
+import { getCamps } from "../features/camp/campSlice";
 import Cards from "../components/Cards";
-import Footer from "../components/Footer";
 import {
-  CssBaseline,
   InputAdornment,
   IconButton,
-  Container,
   Box,
   Stack,
   Typography,
@@ -62,33 +59,13 @@ const YcTextField = styled(TextField)({
 function Search() {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
-  // const [campgrounds, setCampgrounds] = useState([]);
-  //   const {campgrounds, isLoading, isSuccess, isError} = useSelector(
-  //     (state) => state.camp
-  //   )
-
-  // useEffect(()=>{
-  //   if(campgrounds.length === 0 && !isLoading){
-  //     console.log("searching")
-  //   dispatch(getCamps())
-  //   }
-  //   return ()=>{
-  //     !isLoading && dispatch(reset())
-  //   }
-  // },[])
-
-  const { isLoading, isSuccess, isError, campgrounds } = useSelector(
+  const { campgrounds } = useSelector(
     (state) => state.camp
   );
   let filteredCampgrounds = campgrounds
   useEffect(() => {
     dispatch(getCamps());
   }, []);
-
-  const onChange = (e) => {
-    setSearch(e.target.value);
-  };
-
 
   return (
     <Box

@@ -1,7 +1,14 @@
 import React from "react";
-import Drawer from "../components/Drawer";
-import { Button, Grid, Stack, Box, Typography } from "@mui/material";
-import {Link, useNavigate} from "react-router-dom";
+import { Grid, Stack, Box, Typography } from "@mui/material";
+import {useNavigate} from "react-router-dom";
+
+import YcLogo from "../components/YcLogo";
+import Checkmark from "../assets/Checkmark.svg"
+import Airbnb from "../assets/Airbnb.svg"
+import Booking from "../assets/Booking.svg"
+import PlumGuide from "../assets/PlumGuide.svg"
+
+
 
 import YcButton from "../layouts/YcButton";
 const Main = () => {
@@ -14,9 +21,9 @@ const Main = () => {
   ];
 
   const images = [
-    "/assets/Airbnb.svg",
-    "/assets/Booking.svg",
-    "/assets/PlumGuide.svg",
+    Airbnb,
+    Booking,
+    PlumGuide,
   ];
   const Ul = (features) => {
     return (
@@ -39,7 +46,7 @@ const Main = () => {
               <Box
                 component="img"
                 alt="checkmark"
-                src="/assets/checkmark.svg"
+                src={Checkmark}
                 sx={{
                   width: {
                     lg: "20px",
@@ -270,19 +277,7 @@ function LandingPage() {
             },
           }}
         >
-          <Box
-            component="img"
-            alt="logo"
-            src="/assets/logo.svg"
-            sx={{
-              width: {
-                sx: "100%",
-                sm: "200px",
-                md: "130px",
-                lg: "130px",
-              },
-            }}
-          />
+          <YcLogo />
         </Stack>
         <Main />
       </Grid>

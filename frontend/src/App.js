@@ -6,6 +6,11 @@ import MyAppBar from "./components/AppBar";
 import { Box,CssBaseline } from "@mui/material";
 import Footer from "./components/Footer";
 import { getCamps } from "./features/camp/campSlice";
+
+import { ToastContainer,Slide, Zoom, Flip, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import theme from "./theme/theme"
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,14 +34,20 @@ function App() {
       );
     });
   };
- 
+
+
+  useEffect(()=>{
+    window.scrollTo(0, 0)
+  },[pathname])
+
+
   return (
-    <div className="">
+    <ThemeProvider theme={theme}>
       {isHome && (
         <Box
           sx={{
             m: {
-              xs: "2rem 0rem",
+              xs: "4rem 0rem",
               sm: "2rem 1rem",
               md: "4rem 4rem",
               lg: "4rem 4rem",
@@ -58,7 +69,19 @@ function App() {
         </Box>
       )}
       {!isHome && <Routes>{getRoutes(routes)}</Routes>}
-    </div>
+      <ToastContainer
+      position="top-center"
+      autoClose={2000}
+      transition={Flip}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
+    </ThemeProvider>
   );
 }
 
